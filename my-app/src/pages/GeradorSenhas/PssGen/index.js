@@ -332,7 +332,7 @@ export default function PssGen(){
           let tam = parseInt(arr.length/2);
 
           for(let i = 0; i < tam; i++){
-              s = arr[i];
+              s += arr[i];
           }
           s += personalizada;
           for(let i = tam + 1; i < arr.length; i++){
