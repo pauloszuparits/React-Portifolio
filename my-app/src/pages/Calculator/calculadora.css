@@ -1,0 +1,30 @@
+#input{
+    /* margin-top: 10px;
+    display: block;
+    margin-left: auto; */
+    
+    font-size: 2em;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.botao{
+    margin: 6px;
+    font-size: 3em;
+    width: 90px;
+    border-radius: 10px;
+}
+
+.botoes{
+    text-align: center;
+}
+
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#cancel{
+    margin-right: 200px;
+}
