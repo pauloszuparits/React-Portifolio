@@ -12,8 +12,8 @@ import Calculator from "./pages/Calculator"
 import Cronometro from "./pages/Cronometro";
 
 
-import PssGen from "./GeradorSenhas/PssGen";
-import PssSaved from "./GeradorSenhas/PssSaved";
+import PssGen from "./pages/GeradorSenhas/PssGen";
+import PssSaved from "./pages/GeradorSenhas/PssSaved";
 const Rotas = ()=>{
     return(
         <Router>
