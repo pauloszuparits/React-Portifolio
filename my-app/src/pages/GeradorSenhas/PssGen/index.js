@@ -10,8 +10,9 @@ import { Link } from "react-router-dom";
 //Colocar Abbr no inicio meio fim
 
 export default function PssGen(){
+    //texto do abbr 2
     const duvidaPersonalizado = "Ao selecionar essa opção você irá digitar uma palavra que você quer que tenha em sua senha, por exemplo, ao colocar a palavra teste, poderá ser gerado a senha exemplo@731a"
-
+    //texto do abbr 1
     const duvidaCarac = "Essa é a quantidade de caracteres aleatórios, caso use a opção -personalizar senha com texto- a palavra que escolher não irá contar no numero de caracteres. O minimo de caracteres aleatórios é igual a 4"
 
     const letrasMaiusculas = ['A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
@@ -92,7 +93,7 @@ export default function PssGen(){
         setNaoEmb(!naoEmb);
       };
 
-      function handleChangeInicioMeioFim(num){
+      function handleChangeInicioMeioFim(num){ //mudança de senha personalizada não embaralhada
             switch(num){
                 case 1:
                     setInicio(!inicio);
@@ -112,7 +113,7 @@ export default function PssGen(){
             }
       }
 
-      useEffect(()=>{
+      useEffect(()=>{ //useEffect para o usuário não digitar menos que 4 caracteres
         if(!gerado){
             if(carac < 4){
                 setCarac(4);
@@ -121,7 +122,7 @@ export default function PssGen(){
         
       }, [carac])
 
-    function forca(){
+    function forca(){ //função para verificar a força da senha, retorna um numero que sera usado como comparação na renderização
         let forca = 1;
         forca *= carac;
         if(simEsp){
@@ -181,7 +182,7 @@ export default function PssGen(){
                 
             }
             
-            setSenha(gerarPersonalizada(c));
+            setSenha(gerarPersonalizada(c)); //senha ira receber uma função de gerar personalizado levando o c
             
          
         }else{
@@ -331,12 +332,13 @@ export default function PssGen(){
         
       }
 
-      function gerarPersonalizada(senhaA){
+      function gerarPersonalizada(senhaA){ //gera a senha em si
         senhaA = embaralhar(senhaA);  
-        if(naoPers){
+        if(naoPers){ //caso não tiver senha personalizado, simplismente retorna o parametro recebido
             return senhaA;
         }
 
+        //caso o usuário queira senha personalizada, o código começa apartir daqui
         let s = '';
         
         if(simEmb){
@@ -393,7 +395,7 @@ export default function PssGen(){
           <div className="conclusao">
               <h1 className="titulo-pss2" >Sua senha:<br/><p>{senha}</p></h1>
               {/* Copiar para o clipboar */}
-              <CopyToClipboard text={senha}>
+              <CopyToClipboard text={senha}> 
                   <button className="botao-pss2" onClick={() => {toast.success('COPIADO!!!');}}>Copiar senha</button>
               </CopyToClipboard>
               {/* salvar nova senha */}
@@ -415,8 +417,8 @@ export default function PssGen(){
             {/* quantidade de caracteres */}
             <div className="itens">
                 <p className="Item-pss">Força da senha </p>
-                {/* <button onClick={forca}>Teste</button> */}
-
+                
+                {/* Aqui mostra a força da senha */}
                 { forca() <= 12 ? <p className="Item-pss forca" id="muito-fraco">Muito fraca</p> 
                 : forca() <= 144 ? <p className="Item-pss forca" id="fraco">Fraca </p>
                 : forca() <= 252 ? <p className="Item-pss forca" id="media">Média</p>
