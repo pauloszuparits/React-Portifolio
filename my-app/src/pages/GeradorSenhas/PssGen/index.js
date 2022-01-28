@@ -112,6 +112,32 @@ export default function PssGen(){
             }
       }
 
+      useEffect(()=>{
+        if(!gerado){
+            if(carac < 4){
+                setCarac(4);
+            }
+        }
+        
+      }, [carac])
+
+    function forca(){
+        let forca = 1;
+        forca *= carac;
+        if(simEsp){
+            forca *= 4;
+        }
+        if(simMai){
+            forca *= 3;
+        }
+        if(simNum){
+            forca *= 3
+        }
+
+        return forca;
+
+    }
+
       
       //função para embaralhar a string gerada - retorna uma sttring que se tornará senha
       function embaralhar(stg){
@@ -124,10 +150,6 @@ export default function PssGen(){
             }
             return arr.join("");
       }
-
-      
-      
-
 
 
       function gerar(){  //escolhe a opção selecionada pelo usuário e manda para o gerador
@@ -392,14 +414,25 @@ export default function PssGen(){
             
             {/* quantidade de caracteres */}
             <div className="itens">
+                <p className="Item-pss">Força da senha </p>
+                {/* <button onClick={forca}>Teste</button> */}
+
+                { forca() <= 12 ? <p className="Item-pss forca" id="muito-fraco">Muito fraca</p> 
+                : forca() <= 144 ? <p className="Item-pss forca" id="fraco">Fraca </p>
+                : forca() <= 252 ? <p className="Item-pss forca" id="media">Média</p>
+                : forca() <= 288 ? <p className="Item-pss forca" id="forte">Forte</p>
+                : forca() <= 432 ? <p className="Item-pss forca" id="muito-forte">Muito Forte</p>
+                : forca() <= 864 ? <p className="Item-pss forca" id="absurdo">Me explica o que você quer com essa senha</p>
+                : <p className="Item-pss forca" id="easterEgg">Como você chegou até aqui?</p>}
+
                 <p className="Item-pss">Quantos caracteres você deseja?
                     <abbr title={duvidaCarac} id="duvida">?</abbr>
                 </p>
                 <input type="number" min={4} value={carac} onInput={(e)=>{setCarac(e.target.value); }} className="Item-pss" id="input-pss"/>
 
                 <p className="Item-pss">Deseja caracteres especiais?</p>
-                <input type="checkbox" checked={simEsp} onChange={()=>{handleChangeEsp()}} className="Item-pss check"/>Sim
-                <input type="checkbox" checked={naoEsp} onChange={()=>{handleChangeEsp()}}/>Não 
+                <input type="checkbox" checked={simEsp} onChange={()=>{handleChangeEsp()}} className="Item-pss"/>Sim
+                <input type="checkbox" checked={naoEsp} onChange={()=>{handleChangeEsp()}}className="Item-pss"/>Não 
 
                 <p className="Item-pss">Deseja Números?</p>
                 <input type="checkbox" checked={simNum} onChange={()=>{handleChangeNum()}} className="Item-pss"/>Sim 
