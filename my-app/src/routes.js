@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Calculator from "./pages/Calculator"
 import Cronometro from "./pages/Cronometro";
-
+import Formulario from "./pages/Formulario";
 
 import PssGen from "./pages/GeradorSenhas/PssGen";
 import PssSaved from "./pages/GeradorSenhas/PssSaved";
@@ -23,8 +23,8 @@ const Rotas = ()=>{
                 <Route path="/calculadora" element={<Calculator />}/>
                 <Route path="/cronometro" element={<Cronometro/>}/>
                 <Route path="/pssgen" element={<PssGen/>}/>
-                
                 <Route path="/pssgen/saved" element ={<PssSaved/>}/>
+                <Route path="/formulario" element ={<Formulario/>}/>
             </Routes>
         </Router>
     );

@@ -10,7 +10,8 @@ export default function Header(){
                 <div className="links">
                     <Link to="/calculadora">Calculadora</Link>
                     <Link to="/cronometro">Cronometro</Link>
-                    <Link to="pssgen"> Password Generator</Link>
+                    <Link to="/pssgen"> Password Generator</Link>
+                    <Link to="/formulario"> Formulario</Link>
                 </div>
             </header>
         </div>
