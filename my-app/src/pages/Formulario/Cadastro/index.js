@@ -1,3 +1,6 @@
+//Fazer uma verificaação de tentativa de senha com login e armazenar no local storage
+//caso o usuario esteja logado fazer um joguinho
+
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import { Link } from "react-router-dom";
@@ -85,7 +88,7 @@ export default function Formulario(){
                 <p>Digite seu email</p>
                 <input type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
                 <p>Digite sua senha</p>
-                <input type="text" value={senha} onChange={(e) => {setSenha(e.target.value)}}/>
+                <input type="password" value={senha} onChange={(e) => {setSenha(e.target.value)}}/>
             </div>
                 <button onClick={ novoUsuario }>Cadastrar</button>
         </>
