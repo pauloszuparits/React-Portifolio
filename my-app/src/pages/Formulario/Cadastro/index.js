@@ -5,17 +5,53 @@ export default function Formulario(){
     //Informações do usuário para usar no cadastro
     const[nome, setNome] = useState('');
     const[idade, setIdade] = useState('');
+    const [email, setEmail] = useState('');
     const[senha, setSenha] = useState('');
-    const[usuario, setUsuario] = useState('');
     const[empresa, setEmpresa] = useState('');
     const[cargo, setCargo] = useState('');
     const[trabalha, setTrabalha] = useState(false); 
-
-
+    
+    const[loading, setLoading] = useState(false);
     const[cadastrado, setCadastrado] = useState(false); // se cadastrado cai no condicional
 
     function handleChangeTrabalha(){
         setTrabalha(!trabalha);
+    }
+
+    async function novoUsuario(){
+        setLoading(true);
+        await firebase.auth().createUserWithEmailAndPassword(email, senha)
+        .then(async (value)=>{
+            await firebase.firestore().collection('usuarios')
+            .doc(value.user.uid)
+            .set({
+                nome: nome,
+                idade: idade,
+                empresa: empresa,
+                cargo: cargo
+            })
+            .then(()=>{
+                setNome('');
+                setIdade('');
+                setEmpresa('');
+                setCargo('');
+                setEmail('');
+                setSenha('');
+                setLoading(false);
+                setCadastrado(true);
+            })
+        })
+        .catch((error)=>{
+            if(error.code === 'auth/weak-password'){
+              alert('Senha muito fraca..');
+            }else if(error.code === 'auth/email-already-in-use'){
+              alert('email ja cadastrado');
+            }
+        })
+    }
+
+    if(loading){
+        return(<h1>Carregando...</h1>)
     }
 
     if(cadastrado){
@@ -46,12 +82,12 @@ export default function Formulario(){
                         <input type="text" value={cargo} onChange={(e) => {setCargo(e.target.value)}}/>
                     </div>
                 }
-                <p>Digite o nome de usuário desejado</p>
-                <input type="text" value={usuario} onChange={(e) => {setUsuario(e.target.value)}}/>
+                <p>Digite seu email</p>
+                <input type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
                 <p>Digite sua senha</p>
                 <input type="text" value={senha} onChange={(e) => {setSenha(e.target.value)}}/>
             </div>
-                <button>Cadastrar</button>
+                <button onClick={ novoUsuario }>Cadastrar</button>
         </>
     )
 }
