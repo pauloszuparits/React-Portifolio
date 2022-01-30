@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
+import './login.css'
 export default function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -35,15 +36,26 @@ export default function Login(){
         });
     }
 
+    //function for logout
+    async function logout(){ 
+        await firebase.auth().signOut();
+    }
+
     if(logado){ //condicional logado
         return(
             <>
-                <h1>Você está logado</h1>
-                <p>Seus dados:</p>
-                <p>Nome: {usuario.nome}</p>
-                <p>Cargo: {usuario.cargo}</p>
-                <p>Empresa: {usuario.empresa}</p>
-                <p>Idade: {usuario.idade}</p>  
+                <div>
+                    <h1>Você está logado</h1>
+                    <p>Seus dados:</p>
+                    <p>Nome: {usuario.nome}</p>
+                    <p>Cargo: {usuario.cargo}</p>
+                    <p>Empresa: {usuario.empresa}</p>
+                    <p>Idade: {usuario.idade}</p>
+                    <button onClick={ logout }>Deslogar</button>
+                </div>
+                <div>
+                    <p></p>
+                </div>
             </>
         )
     }

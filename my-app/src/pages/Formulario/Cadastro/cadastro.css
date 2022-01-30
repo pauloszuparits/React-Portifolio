@@ -1,0 +1,40 @@
+.itens-Forumlario{
+    color: white;
+    background-color: blueviolet;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 1px rgba(41, 41, 41, 0.26);
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    text-align: left;
+}
+
+.Item-formulario{
+    margin: 5px;
+    font-size: 1.2em;
+}
+
+.input-formulario{
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+#titulo-formulario{
+    margin: 12px;
+}
+
+.botao-formulario{
+    margin: 20px;
+    font-size: 1.5em;
+    width: 200px;
+    border-radius: 8px;
+    background-color: blueviolet;
+    color: white;
+    border: solid 2px black;
+    cursor: pointer;
+    box-shadow: 3px 3px 1px rgba(41, 41, 41, 0.26);
+}

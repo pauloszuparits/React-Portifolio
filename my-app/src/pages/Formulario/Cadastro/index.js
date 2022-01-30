@@ -1,9 +1,12 @@
 //Fazer uma verificaação de tentativa de senha com login e armazenar no local storage
 //caso o usuario esteja logado fazer um joguinho
+//Traduzir todos os comentários
+//Trocar Readme
 
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import { Link } from "react-router-dom";
+import './cadastro.css'
 export default function Formulario(){
     //Informações do usuário para usar no cadastro
     const[nome, setNome] = useState('');
@@ -69,30 +72,30 @@ export default function Formulario(){
     }
 
     return( //renderização principal
-        <>
-            <h1>Formulario</h1>
-            <div>
-                <p>Digite seu nome</p>
-                <input type="text" value={nome} onChange={(e) => {setNome(e.target.value)}}/>
-                <p>Digite sua idade</p>
-                <input type="number" value={idade} onChange={(e) => {setIdade(e.target.value)}}/>
-                <p>Você trabalha?</p>
-                <input type="checkbox" checked={trabalha} onChange={ handleChangeTrabalha }/>Sim
-                <input type="checkbox" checked={!trabalha} onChange={ handleChangeTrabalha }/>Não
+        <div className="conteiner">
+            <h1 id="titulo-formulario">Formulario</h1>
+            <div className="itens-Forumlario">
+                <p className="Item-formulario">Digite seu nome</p>
+                <input type="text" value={nome} onChange={(e) => {setNome(e.target.value)}} className="input-formulario"/>
+                <p className="Item-formulario">Digite sua idade</p>
+                <input type="number" value={idade} onChange={(e) => {setIdade(e.target.value)}} className="input-formulario"/>
+                <p className="Item-formulario">Você trabalha?</p>
+                <input type="checkbox" checked={trabalha} onChange={ handleChangeTrabalha } className="Item-formulario"/>Sim
+                <input type="checkbox" checked={!trabalha} onChange={ handleChangeTrabalha } className="Item-formulario"/>Não
                 {trabalha && //caso usuário selecionar sim no checkbox
                     <div>
-                        <p>Digite o nome da empresa em que trabalha</p>
-                        <input type="text" value={empresa} onChange={(e) => {setEmpresa(e.target.value)}}/>
-                        <p>Digite seu cargo</p>
-                        <input type="text" value={cargo} onChange={(e) => {setCargo(e.target.value)}}/>
+                        <p className="Item-formulario">Digite o nome da empresa</p>
+                        <input type="text" value={empresa} onChange={(e) => {setEmpresa(e.target.value)}} className="input-formulario"/>
+                        <p className="Item-formulario">Digite seu cargo</p>
+                        <input type="text" value={cargo} onChange={(e) => {setCargo(e.target.value)}} className="input-formulario"/>
                     </div>
                 }
-                <p>Digite seu email</p>
-                <input type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-                <p>Digite sua senha</p>
-                <input type="password" value={senha} onChange={(e) => {setSenha(e.target.value)}}/>
+                <p className="Item-formulario">Digite seu email</p>
+                <input type="text" value={email} onChange={(e) => {setEmail(e.target.value)}} className="input-formulario"/>
+                <p className="Item-formulario">Digite sua senha</p>
+                <input type="password" value={senha} onChange={(e) => {setSenha(e.target.value)}} className="input-formulario"/>
             </div>
-                <button onClick={ novoUsuario }>Cadastrar</button>
-        </>
+                <button onClick={ novoUsuario } className="botao-formulario">Cadastrar</button>
+        </div>
     )
 }
