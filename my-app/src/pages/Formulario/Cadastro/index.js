@@ -7,6 +7,8 @@ import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import { Link } from "react-router-dom";
 import './../formulario.css'
+import './../theOffice.gif'
+
 export default function Formulario(){
     //Informações do usuário para usar no cadastro
     const[nome, setNome] = useState('');
@@ -64,10 +66,18 @@ export default function Formulario(){
 
     if(cadastrado){ //Condicional para se já cadastrado
         return(
-            <>
-                <h1>Cadastro efetuado com sucesso</h1>
-                <Link to = "/formulario"> Fazer Login</Link>
-            </>
+            <div className="conteiner">
+                <h1 id="titulo-formulario">PARABÉNS!!!!</h1>
+                <div className="conteiner-cadastrado">
+                    
+                    <h2 id="titulo-formulario2">Cadastro efetuado com sucesso</h2>
+                    <div>
+                        <Link to = "/formulario" id="link-cadastro2"> Fazer Login</Link>
+                    </div>
+                </div>
+                <img src={require('./../theOffice.gif')} id="gif"/>
+            </div>
+            
         );
     }
 

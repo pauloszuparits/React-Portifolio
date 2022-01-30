@@ -7,7 +7,7 @@ export default function Login(){
     const [senha, setSenha] = useState('');
     const [usuario, setUsuario] = useState({});
 
-    const [logado, setLogado] = useState(false); //se logado true cai na condicional
+    const [logado, setLogado] = useState(true); //se logado true cai na condicional
 
     //função para efetuar Login
     async function login(){
@@ -43,16 +43,16 @@ export default function Login(){
 
     if(logado){ //condicional logado
         return(  
-            <div className="conteiner">
-                <h1>Você está logado</h1>
-                <p>Seus dados:</p>
-                <p>Nome: {usuario.nome}</p>
-                <p>Cargo: {usuario.cargo}</p>
-                <p>Empresa: {usuario.empresa}</p>
-                <p>Idade: {usuario.idade}</p>
-                <button onClick={ logout }>Deslogar</button>
-            
-                <p></p>
+            <div>
+                <h1 id="titulo-formulario-logado">Você está logado</h1>
+                <div className="conteiner-logado">
+                    <p>Seus dados:</p>
+                    <p><strong>Nome:</strong> {usuario.nome}</p>
+                    <p><strong>Cargo:</strong> {usuario.cargo}</p>
+                    <p><strong>Empresa:</strong> {usuario.empresa}</p>
+                    <p><strong>Idade:</strong> {usuario.idade}</p>
+                    <button onClick={ logout }>Deslogar</button>
+                </div>
             </div>
         )
     }
