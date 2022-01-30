@@ -38,3 +38,23 @@
     cursor: pointer;
     box-shadow: 3px 3px 1px rgba(41, 41, 41, 0.26);
 }
+
+
+.link-formulario{
+    margin-top: 10px;
+    width: 230px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#link-cadastro{
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#link-cadastro:hover{
+    background-color: rgb(83, 26, 136);
+}

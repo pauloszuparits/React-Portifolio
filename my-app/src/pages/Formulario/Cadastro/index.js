@@ -6,7 +6,7 @@
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import { Link } from "react-router-dom";
-import './cadastro.css'
+import './../formulario.css'
 export default function Formulario(){
     //Informações do usuário para usar no cadastro
     const[nome, setNome] = useState('');
