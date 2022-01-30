@@ -14,37 +14,39 @@ export default function Formulario(){
     const[cargo, setCargo] = useState('');
     const[trabalha, setTrabalha] = useState(false); 
     
-    const[loading, setLoading] = useState(false);
+    const[loading, setLoading] = useState(false); // se loading true cai no condicional
     const[cadastrado, setCadastrado] = useState(false); // se cadastrado cai no condicional
 
+    //função para mudar o checkbox do trabalho
     function handleChangeTrabalha(){
         setTrabalha(!trabalha);
     }
 
+    //função para cadastrar novo usuário no banco de dados
     async function novoUsuario(){
-        setLoading(true);
-        await firebase.auth().createUserWithEmailAndPassword(email, senha)
-        .then(async (value)=>{
-            await firebase.firestore().collection('usuarios')
-            .doc(value.user.uid)
+        setLoading(true); // começa a renderizar a pagina de carregando
+        await firebase.auth().createUserWithEmailAndPassword(email, senha) //cria um usuario e senha
+        .then(async (value)=>{ //se der certo a criação de usuario e senha
+            await firebase.firestore().collection('usuarios') //adiciona dados no banco 'usuarios'
+            .doc(value.user.uid) //usa o uid como chave unica
             .set({
                 nome: nome,
                 idade: idade,
                 empresa: empresa,
                 cargo: cargo
             })
-            .then(()=>{
+            .then(()=>{ //se der certo a criação do banco de dados
                 setNome('');
                 setIdade('');
                 setEmpresa('');
                 setCargo('');
                 setEmail('');
                 setSenha('');
-                setLoading(false);
-                setCadastrado(true);
+                setLoading(false); //para o carregamento
+                setCadastrado(true); //segue para a pagina de cadastrado
             })
         })
-        .catch((error)=>{
+        .catch((error)=>{ //se criação de usuario e senha der errado
             if(error.code === 'auth/weak-password'){
               alert('Senha muito fraca..');
             }else if(error.code === 'auth/email-already-in-use'){
@@ -53,11 +55,11 @@ export default function Formulario(){
         })
     }
 
-    if(loading){
+    if(loading){ //condicional para Loading
         return(<h1>Carregando...</h1>)
     }
 
-    if(cadastrado){
+    if(cadastrado){ //Condicional para se já cadastrado
         return(
             <>
                 <h1>Cadastro efetuado com sucesso</h1>
@@ -66,7 +68,7 @@ export default function Formulario(){
         );
     }
 
-    return(
+    return( //renderização principal
         <>
             <h1>Formulario</h1>
             <div>
@@ -77,7 +79,7 @@ export default function Formulario(){
                 <p>Você trabalha?</p>
                 <input type="checkbox" checked={trabalha} onChange={ handleChangeTrabalha }/>Sim
                 <input type="checkbox" checked={!trabalha} onChange={ handleChangeTrabalha }/>Não
-                {trabalha && 
+                {trabalha && //caso usuário selecionar sim no checkbox
                     <div>
                         <p>Digite o nome da empresa em que trabalha</p>
                         <input type="text" value={empresa} onChange={(e) => {setEmpresa(e.target.value)}}/>
