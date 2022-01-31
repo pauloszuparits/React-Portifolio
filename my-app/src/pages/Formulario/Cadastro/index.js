@@ -1,7 +1,7 @@
 //Fazer uma verificaação de tentativa de senha com login e armazenar no local storage
-//caso o usuario esteja logado fazer um joguinho
 //Traduzir todos os comentários
 //Trocar Readme
+//terminar a parte d e loginn e fazer o album
 
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
@@ -38,7 +38,8 @@ export default function Formulario(){
                 nome: nome,
                 idade: idade,
                 empresa: empresa,
-                cargo: cargo
+                cargo: cargo,
+                nivel: 0
             })
             .then(()=>{ //se der certo a criação do banco de dados
                 setNome('');

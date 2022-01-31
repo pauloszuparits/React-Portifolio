@@ -2,12 +2,15 @@ import { Link } from "react-router-dom"
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import './../formulario.css'
+
 export default function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [src, setSrc] = useState('');
     const [usuario, setUsuario] = useState({});
+    
 
-    const [logado, setLogado] = useState(true); //se logado true cai na condicional
+    const [logado, setLogado] = useState(false); //se logado true cai na condicional
 
     //função para efetuar Login
     async function login(){
@@ -18,10 +21,12 @@ export default function Login(){
             .get()
             .then((snapshot)=>{ 
                 setUsuario({ //armazena tudo no objeto usuario
+                    id: value.user.uid,
                     nome: snapshot.data().nome,
                     cargo: snapshot.data().cargo,
                     empresa: snapshot.data().empresa,
-                    idade: snapshot.data().idade
+                    idade: snapshot.data().idade,
+                    nivel: snapshot.data().nivel
                 });
             })
             setLogado(true);
@@ -34,24 +39,67 @@ export default function Login(){
                 alert('senha Invalida')
             }
         });
+
+        let n = String(Math.floor(Math.random() * 3));
+        console.log(n);
+        await firebase.firestore().collection('gifts')
+        .doc(n) 
+        .get()
+        .then((snapshot)=>{
+            setSrc(snapshot.data().source)
+        });
+        
     }
+
+    
 
     //function for logout
     async function logout(){ 
         await firebase.auth().signOut();
+        setLogado(false);
+    }
+
+    //A function to level up the user after he clicked on the button
+    function subirNivel(){
+        firebase.firestore().collection('usuarios')
+        .doc(usuario.id)
+        .update({nivel: usuario.nivel+1})
+        .then(()=>{
+            console.log('sucesso');
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
     }
 
     if(logado){ //condicional logado
         return(  
             <div>
-                <h1 id="titulo-formulario-logado">Você está logado</h1>
-                <div className="conteiner-logado">
-                    <p>Seus dados:</p>
-                    <p><strong>Nome:</strong> {usuario.nome}</p>
-                    <p><strong>Cargo:</strong> {usuario.cargo}</p>
-                    <p><strong>Empresa:</strong> {usuario.empresa}</p>
-                    <p><strong>Idade:</strong> {usuario.idade}</p>
-                    <button onClick={ logout }>Deslogar</button>
+                <div id="dados-logado">
+                    <div>
+                        <h1 id="titulo-formulario-logado">Você está logado</h1>
+                        <div className="conteiner-logado">
+                            <p>Seus dados:</p>
+                            <p><strong>Nome:</strong> {usuario.nome}</p>
+                            <p><strong>Cargo:</strong> {usuario.cargo}</p>
+                            <p><strong>Empresa:</strong> {usuario.empresa}</p>
+                            <p><strong>Idade:</strong> {usuario.idade}</p>
+                            <button onClick={ logout } id="deslogar">Deslogar</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Seu Nível: {usuario.nivel}</p>
+                        {/* <p>Seus Pontos</p> Colocar as pontuações com base nos valores de cada imagem */}
+                        {/* <Link>Acesse seu album</Link> Colocar um link para um album de imagens */}
+                    </div>
+                </div>
+
+                <div className="conteiner-nivel">
+                    <p id="nivel-texto">Agora voce tem direito de pegar uma imagem e subir um nível, você só pode subir um nível por dia, quanto mais você entrar mais niveis você irá acumular!</p>
+                    <img src={src} id="gift"/>
+                    <p>+</p>
+                    <p>Seu nível irá para o nível {usuario.nivel + 1}</p>
+                    <button onClick={ subirNivel }>Revindicar sua recompensa</button>
                 </div>
             </div>
         )
