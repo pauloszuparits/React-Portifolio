@@ -39,7 +39,8 @@ export default function Formulario(){
                 idade: idade,
                 empresa: empresa,
                 cargo: cargo,
-                nivel: 0
+                nivel: 0,
+                pontos: 0
             })
             .then(()=>{ //se der certo a criação do banco de dados
                 setNome('');

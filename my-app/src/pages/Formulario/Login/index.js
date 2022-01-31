@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom"
-import { useState } from "react/cjs/react.development"
+import { useEffect, useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import './../formulario.css'
 
 export default function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [src, setSrc] = useState('');
+    const [gift, setGift] = useState({});
     const [usuario, setUsuario] = useState({});
     
-
+    const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
     const [logado, setLogado] = useState(false); //se logado true cai na condicional
 
-    //função para efetuar Login
+    
+
+    //function to login
     async function login(){
         await firebase.auth().signInWithEmailAndPassword(email, senha)
         .then(async(value)=>{ //se login der certo
@@ -26,7 +28,8 @@ export default function Login(){
                     cargo: snapshot.data().cargo,
                     empresa: snapshot.data().empresa,
                     idade: snapshot.data().idade,
-                    nivel: snapshot.data().nivel
+                    nivel: snapshot.data().nivel,
+                    pontos: snapshot.data().pontos
                 });
             })
             setLogado(true);
@@ -46,7 +49,10 @@ export default function Login(){
         .doc(n) 
         .get()
         .then((snapshot)=>{
-            setSrc(snapshot.data().source)
+            setGift({src: snapshot.data().source,
+                    pontos: snapshot.data().valor});
+            
+            
         });
         
     }
@@ -57,19 +63,40 @@ export default function Login(){
     async function logout(){ 
         await firebase.auth().signOut();
         setLogado(false);
+        setRevindicado(false);
     }
 
     //A function to level up the user after he clicked on the button
-    function subirNivel(){
-        firebase.firestore().collection('usuarios')
+    async function subirNivel(){
+        let p = usuario.pontos + gift.pontos;
+        console.log("pontos " + gift.pontos);
+        console.log("user points " + usuario.pontos)
+        await firebase.firestore().collection('usuarios')
         .doc(usuario.id)
-        .update({nivel: usuario.nivel+1})
+        .update({nivel: usuario.nivel+1,
+                 pontos: p})
         .then(()=>{
             console.log('sucesso');
+            setRevindicado(true);
         })
         .catch((error)=>{
             console.log(error);
         })
+
+        await firebase.firestore().collection('usuarios')
+            .doc(usuario.id)
+            .get()
+            .then((snapshot)=>{ 
+                setUsuario({ //armazena tudo no objeto usuario
+                    id: usuario.id,
+                    nome: snapshot.data().nome,
+                    cargo: snapshot.data().cargo,
+                    empresa: snapshot.data().empresa,
+                    idade: snapshot.data().idade,
+                    nivel: snapshot.data().nivel,
+                    pontos: snapshot.data().pontos
+                });
+            })
     }
 
     if(logado){ //condicional logado
@@ -89,18 +116,25 @@ export default function Login(){
                     </div>
                     <div>
                         <p>Seu Nível: {usuario.nivel}</p>
-                        {/* <p>Seus Pontos</p> Colocar as pontuações com base nos valores de cada imagem */}
+                        <p>Seus Pontos: {usuario.pontos}</p>
                         {/* <Link>Acesse seu album</Link> Colocar um link para um album de imagens */}
                     </div>
                 </div>
 
+                {revindicado ? 
+                
+                <h2>Seu premio ja foi revindicado hoje</h2>
+                
+                :
+                
                 <div className="conteiner-nivel">
                     <p id="nivel-texto">Agora voce tem direito de pegar uma imagem e subir um nível, você só pode subir um nível por dia, quanto mais você entrar mais niveis você irá acumular!</p>
-                    <img src={src} id="gift"/>
+                    <img src={gift.src} id="gift"/>
                     <p>+</p>
                     <p>Seu nível irá para o nível {usuario.nivel + 1}</p>
                     <button onClick={ subirNivel }>Revindicar sua recompensa</button>
-                </div>
+                    </div>
+                }
             </div>
         )
     }
