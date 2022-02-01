@@ -31,7 +31,8 @@ export default function Login(){
                     empresa: snapshot.data().empresa,
                     idade: snapshot.data().idade,
                     nivel: snapshot.data().nivel,
-                    pontos: snapshot.data().pontos
+                    pontos: snapshot.data().pontos,
+                    album: snapshot.data().album
                 });
             })
             setLogado(true);
@@ -52,12 +53,11 @@ export default function Login(){
         .get()
         .then((snapshot)=>{
             setGift({src: snapshot.data().source,
-                    pontos: snapshot.data().valor});
+                    pontos: snapshot.data().valor,
+                    id: n});
         });
         
     }
-
-    
 
     //function for logout
     async function logout(){ 
@@ -73,7 +73,8 @@ export default function Login(){
         await firebase.firestore().collection('usuarios')
         .doc(usuario.id)
         .update({nivel: usuario.nivel+1,
-                 pontos: p})
+                 pontos: p,
+                 album: usuario.album + ',' + gift.id}) //to get what pictures user have
         .then(()=>{
             console.log('sucesso');
             
@@ -94,9 +95,12 @@ export default function Login(){
                     empresa: snapshot.data().empresa,
                     idade: snapshot.data().idade,
                     nivel: snapshot.data().nivel,
-                    pontos: snapshot.data().pontos
+                    pontos: snapshot.data().pontos,
+                    album: snapshot.data().album
                 });
             })
+
+            console.log(usuario.album);
     }
 
     if(logado){ //condicional logado
@@ -117,7 +121,9 @@ export default function Login(){
                     <div>
                         <p>Seu Nível: {usuario.nivel}</p>
                         <p>Seus Pontos: {usuario.pontos}</p>
-                        {/* <Link>Acesse seu album</Link> Colocar um link para um album de imagens */}
+                        <div className="album">
+                            <Link to="/album" id="album">Acesse seu Album</Link>
+                        </div>
                     </div>
                 </div>
 
@@ -127,7 +133,7 @@ export default function Login(){
                 
                 :
                 //if 'revindicado' false, gift wasn't claimed
-                <div className="conteiner-nivel"> /
+                <div className="conteiner-nivel"> 
                     <p id="nivel-texto">Agora voce tem direito de pegar uma imagem e subir um nível, você só pode subir um nível por dia, quanto mais você entrar mais niveis você irá acumular!</p>
                     <img src={gift.src} id="gift"/>
                     <p>+</p>

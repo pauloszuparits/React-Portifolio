@@ -40,7 +40,8 @@ export default function Formulario(){
                 empresa: empresa,
                 cargo: cargo,
                 nivel: 0,
-                pontos: 0
+                pontos: 0,
+                album: ''
             })
             .then(()=>{ //se der certo a criação do banco de dados
                 setNome('');

@@ -15,6 +15,7 @@ import Login from "./pages/Formulario/Login";
 import PssGen from "./pages/GeradorSenhas/PssGen";
 import PssSaved from "./pages/GeradorSenhas/PssSaved";
 import Testes from "./pages/Testes";
+import Album from "./pages/Formulario/Album";
 const Rotas = ()=>{
     return(
         <Router>
@@ -28,6 +29,8 @@ const Rotas = ()=>{
                 <Route path="/formulario" element ={<Login/>}/>
                 <Route path="/formulario/cadastro" element ={<Formulario/>}/>
                 <Route path="/testes" element ={<Testes/>}/>
+                <Route path="/album" element ={<Album/>}/>
+              
             </Routes>
         </Router>
     );
