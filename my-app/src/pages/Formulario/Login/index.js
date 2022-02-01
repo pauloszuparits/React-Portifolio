@@ -6,13 +6,15 @@ import './../formulario.css'
 export default function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [gift, setGift] = useState({});
-    const [usuario, setUsuario] = useState({});
+
+    const [gift, setGift] = useState({}); //source for gifts
+    const [usuario, setUsuario] = useState({}); //data about the user
     
     const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
     const [logado, setLogado] = useState(false); //se logado true cai na condicional
 
-    
+    const [data, setData] = useState();
+
 
     //function to login
     async function login(){
@@ -43,16 +45,14 @@ export default function Login(){
             }
         });
 
-        let n = String(Math.floor(Math.random() * 3));
-        console.log(n);
-        await firebase.firestore().collection('gifts')
+        let n = String(Math.floor(Math.random() * 3)); //generates a random number
+        
+        await firebase.firestore().collection('gifts') //get data from collection gifts -> image and points for each image
         .doc(n) 
         .get()
         .then((snapshot)=>{
             setGift({src: snapshot.data().source,
                     pontos: snapshot.data().valor});
-            
-            
         });
         
     }
@@ -66,28 +66,28 @@ export default function Login(){
         setRevindicado(false);
     }
 
-    //A function to level up the user after he clicked on the button
+    //A function to level up and update points of the user after he clicked on the button
     async function subirNivel(){
         let p = usuario.pontos + gift.pontos;
-        console.log("pontos " + gift.pontos);
-        console.log("user points " + usuario.pontos)
+        
         await firebase.firestore().collection('usuarios')
         .doc(usuario.id)
         .update({nivel: usuario.nivel+1,
                  pontos: p})
         .then(()=>{
             console.log('sucesso');
+            
             setRevindicado(true);
         })
         .catch((error)=>{
             console.log(error);
         })
 
-        await firebase.firestore().collection('usuarios')
+        await firebase.firestore().collection('usuarios') //get data again after level up
             .doc(usuario.id)
             .get()
             .then((snapshot)=>{ 
-                setUsuario({ //armazena tudo no objeto usuario
+                setUsuario({ 
                     id: usuario.id,
                     nome: snapshot.data().nome,
                     cargo: snapshot.data().cargo,
@@ -121,13 +121,13 @@ export default function Login(){
                     </div>
                 </div>
 
-                {revindicado ? 
+                {revindicado ? //if 'revindidcado' true, gift was claimed
                 
                 <h2>Seu premio ja foi revindicado hoje</h2>
                 
                 :
-                
-                <div className="conteiner-nivel">
+                //if 'revindicado' false, gift wasn't claimed
+                <div className="conteiner-nivel"> /
                     <p id="nivel-texto">Agora voce tem direito de pegar uma imagem e subir um nível, você só pode subir um nível por dia, quanto mais você entrar mais niveis você irá acumular!</p>
                     <img src={gift.src} id="gift"/>
                     <p>+</p>
@@ -139,7 +139,7 @@ export default function Login(){
         )
     }
 
-    return( //render principal
+    return( //main render
         <div className="conteiner">
             <h1 id="titulo-formulario">Login</h1>
                 <div className="itens-Forumlario">       
