@@ -166,3 +166,14 @@
 .album{
     margin-top: 10px;
 }
+
+.conteiner-album{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.conteiner-album img{
+    margin: 20px;
+    width: 100px;
+}

@@ -37,6 +37,22 @@ export default function Album(){
         }else{
             setSrc1(src)
         }
+        if(separado.some((e)=>e==='1')){
+            setSrc2(getGift(1));
+        }else{
+            setSrc2(src)
+        }
+        if(separado.some((e)=>e==='2')){
+            setSrc3(getGift(2));
+        }else{
+            setSrc3(src)
+        }
+        if(separado.some((e)=>e==='3')){
+            setSrc4(getGift(3));
+        }else{
+            setSrc4(src)
+        }
+        
         
     }
 

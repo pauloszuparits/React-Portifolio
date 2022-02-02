@@ -9,7 +9,8 @@ export default function Login(){
 
     const [gift, setGift] = useState({}); //source for gifts
     const [usuario, setUsuario] = useState({}); //data about the user
-    const [urlAlbum, setUrlAlbum] = useState();
+
+    var [urlAlbum, setUrlAlbum] = useState();
     
     const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
     const [logado, setLogado] = useState(false); //se logado true cai na condicional
@@ -35,9 +36,11 @@ export default function Login(){
                     pontos: snapshot.data().pontos,
                     album: snapshot.data().album
                 });
+                setUrlAlbum('/album/'+value.user.uid);
             })
             setLogado(true);
-            setUrlAlbum('/album/'+usuario.id);
+            
+            
         })
         .catch((error)=>{ //se login não der certo
             if(error.code === "auth/invalid-email"){
@@ -60,6 +63,8 @@ export default function Login(){
         });
         
     }
+
+    
 
     //function for logout
     async function logout(){ 
