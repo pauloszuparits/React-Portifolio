@@ -9,6 +9,7 @@ export default function Login(){
 
     const [gift, setGift] = useState({}); //source for gifts
     const [usuario, setUsuario] = useState({}); //data about the user
+    const [urlAlbum, setUrlAlbum] = useState();
     
     const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
     const [logado, setLogado] = useState(false); //se logado true cai na condicional
@@ -36,6 +37,7 @@ export default function Login(){
                 });
             })
             setLogado(true);
+            setUrlAlbum('/album/'+usuario.id);
         })
         .catch((error)=>{ //se login não der certo
             if(error.code === "auth/invalid-email"){
@@ -122,7 +124,7 @@ export default function Login(){
                         <p>Seu Nível: {usuario.nivel}</p>
                         <p>Seus Pontos: {usuario.pontos}</p>
                         <div className="album">
-                            <Link to="/album" id="album">Acesse seu Album</Link>
+                            <Link to={urlAlbum} id="album">Acesse seu Album</Link>
                         </div>
                     </div>
                 </div>

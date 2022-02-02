@@ -29,7 +29,7 @@ const Rotas = ()=>{
                 <Route path="/formulario" element ={<Login/>}/>
                 <Route path="/formulario/cadastro" element ={<Formulario/>}/>
                 <Route path="/testes" element ={<Testes/>}/>
-                <Route path="/album" element ={<Album/>}/>
+                <Route path="/album/:id" element ={<Album/>}/>
               
             </Routes>
         </Router>
