@@ -1,5 +1,6 @@
 import { useState } from "react/cjs/react.development";
-
+import './tarefas.css'
+import Draggable from "react-draggable";
 export default function Tarefas(){
 
     const[tarefa, setTarefa] = useState('');
@@ -23,17 +24,35 @@ export default function Tarefas(){
     
     return(
         <div>
-            <h1>Suas Tarefas</h1>
-            <input type="text" value = {tarefa} onChange={(e)=>{setTarefa(e.target.value)}}/>
-            <button onClick={handleAdd}>Adicionar</button>
-            <ul>
-                {tarefas.map(tarefa => (
-                    <div>
-                        <li key={tarefa.id}>{tarefa.tarefa}</li>
-                        <button onClick={()=>{handleDelete(tarefa.id)}}>X</button>
-                    </div>
-                ))}
-            </ul>
+            <div className="titulo-tarefas-conteiner">
+                <h1 className="item-titulo-tarefa">Suas Tarefas</h1>
+                <input className="item-titulo-tarefa" type="text" value = {tarefa} onChange={(e)=>{setTarefa(e.target.value)}}/>
+                <button className="item-titulo-tarefa" onClick={handleAdd}>Adicionar</button>
+            </div>
+
+            <div className="conteiner-tarefas">
+                <div className="tarefas">
+                    <h2>Planejado</h2>
+                    <ul>
+                        {tarefas.map(tarefa => (
+                            <Draggable>
+                                <div>
+                                    <li key={tarefa.id}>{tarefa.tarefa}</li>
+                                    <button onClick={()=>{handleDelete(tarefa.id)}}>X</button>
+                                </div>
+                            </Draggable>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="tarefas">
+                    <h2>Em progresso</h2>
+                </div>
+
+                <div className="tarefas">
+                    <h2>Feito</h2>
+                </div>
+            </div>
         </div>
     );
 }
