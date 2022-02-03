@@ -7,9 +7,12 @@ export default function Tarefas(){
     const[tarefas, setTarefas] = useState([]);
     const[contador, setContador] = useState(0);
 
+    
+
     function handleAdd(){
         let objTarefa = {id: contador,
-                        tarefa: tarefa}
+                        tarefa: tarefa,
+                        posicao: {x: -3, y: 10}}
         setTarefas([...tarefas, objTarefa]);
         setTarefa('');
         let cont = contador + 1;
@@ -31,25 +34,25 @@ export default function Tarefas(){
             </div>
 
             <div className="conteiner-tarefas">
-                <div className="tarefas">
+                <div className="tarefas" id="planejado">
                     <h2>Planejado</h2>
-                    <ul>
+                    
                         {tarefas.map(tarefa => (
-                            <Draggable>
-                                <div>
-                                    <li key={tarefa.id}>{tarefa.tarefa}</li>
-                                    <button onClick={()=>{handleDelete(tarefa.id)}}>X</button>
+                            <Draggable defaultPosition={tarefa.posicao} key={tarefa.id}>
+                                <div className="tarefa">
+                                    <p >{tarefa.tarefa}</p>
+                                    <button  onClick={()=>{handleDelete(tarefa.id)}}>X</button>
                                 </div>
                             </Draggable>
                         ))}
-                    </ul>
+                    
                 </div>
 
-                <div className="tarefas">
+                <div className="tarefas" id="progresso">
                     <h2>Em progresso</h2>
                 </div>
 
-                <div className="tarefas">
+                <div className="tarefas" id="feito">
                     <h2>Feito</h2>
                 </div>
             </div>

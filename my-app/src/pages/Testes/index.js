@@ -9,9 +9,10 @@ export default function Testes(){
     //     })
     //     console.log(filtro);
     // }
+    const [position, setPosition] = useState({x: 360, y: 0})
     return(
         <div>
-           <Draggable>
+           <Draggable position={position}>
                <h1>Teste</h1>
            </Draggable>
         </div>
