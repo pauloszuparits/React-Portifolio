@@ -12,6 +12,7 @@ export default function Header(){
                     <Link to="/cronometro">Cronometro</Link>
                     <Link to="/pssgen"> Password Generator</Link>
                     <Link to="/formulario"> Formulario</Link>
+                    <Link to="/tarefas"> Tarefas</Link>
                     <Link to="/testes"> Área de testes</Link>
                 </div>
             </header>

@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import firebase from "../../../firebaseConnection";
-
+import { Link } from "react-router-dom";
+import Login from "../Login";
 export default function Album(){
     
     //object standard for image, that is, if user doesn't have the card, that src will be shown
@@ -12,7 +13,6 @@ export default function Album(){
     
     const [carregado, setCarregado] = useState(false); //if button was clicked, this var becomes true
 
-    
     //src vars
     const [src1, setSrc1] = useState({});
     const [src2, setSrc2] = useState({});
@@ -20,6 +20,7 @@ export default function Album(){
     const [src4, setSrc4] = useState({});
     
     async function carregarAlbum(){
+        
         let s;
         await firebase.firestore().collection('usuarios')
         .doc(id)
@@ -111,7 +112,7 @@ export default function Album(){
             </div>
             :
             <button onClick={ carregarAlbum }>Carregar seu Album</button>}
-            
+            <Link to={"/formulario"}>Voltar</Link>
         </div>
     );
 }

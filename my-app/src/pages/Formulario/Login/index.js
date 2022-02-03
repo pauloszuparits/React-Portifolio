@@ -3,7 +3,7 @@ import { useEffect, useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import './../formulario.css';
 import './../carregando.gif';
-
+import Album from "../Album";
 
 export default function Login(){
     const [email, setEmail] = useState('');
@@ -15,11 +15,12 @@ export default function Login(){
     var [urlAlbum, setUrlAlbum] = useState();
     
     const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
-    const [logado, setLogado] = useState(false); //se logado true cai na condicional
+    const [logado, setLogado] = useState(); //se logado true cai na condicional
 
     const[loading, setLoading] = useState(false);
 
-
+    
+    
     //function to login
     async function login(){
         setLoading(true);
@@ -43,7 +44,8 @@ export default function Login(){
             })
             setLogado(true);
             setLoading(false);
-            
+
+
         })
         .catch((error)=>{ //se login não der certo
             if(error.code === "auth/invalid-email"){
@@ -66,8 +68,6 @@ export default function Login(){
         });
         
     }
-
-    
 
     //function for logout
     async function logout(){ 
@@ -158,12 +158,13 @@ export default function Login(){
                     <img src={gift.src} id="gift"/>
                     <p>+</p>
                     <p>Seu nível irá para o nível {usuario.nivel + 1}</p>
-                    <button onClick={ subirNivel }>Revindicar sua recompensa</button>
+                    <button onClick={ subirNivel } className="botao-formulario">Revindicar sua recompensa</button>
                     </div>
                 }
             </div>
         )
     }
+    
 
     return( //main render
         <div className="conteiner">
