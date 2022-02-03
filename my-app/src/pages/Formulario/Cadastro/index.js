@@ -1,16 +1,17 @@
 //Fazer uma verificaação de tentativa de senha com login e armazenar no local storage
 //Traduzir todos os comentários
 //Trocar Readme
-//terminar a parte d e loginn e fazer o album
+
 
 import { useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
 import { Link } from "react-router-dom";
 import './../formulario.css'
-import './../theOffice.gif'
+import './../theOffice.gif';
+import './../carregando.gif';
 
 export default function Formulario(){
-    //Informações do usuário para usar no cadastro
+    //User information
     const[nome, setNome] = useState('');
     const[idade, setIdade] = useState('');
     const [email, setEmail] = useState('');
@@ -19,10 +20,10 @@ export default function Formulario(){
     const[cargo, setCargo] = useState('');
     const[trabalha, setTrabalha] = useState(false); 
     
-    const[loading, setLoading] = useState(false); // se loading true cai no condicional
-    const[cadastrado, setCadastrado] = useState(false); // se cadastrado cai no condicional
+    const[loading, setLoading] = useState(false); // if loading true enter on 'if'
+    const[cadastrado, setCadastrado] = useState(false); // if cadastrado true enter on 'if'
 
-    //função para mudar o checkbox do trabalho
+    //function to change 'trabalha' checkbox
     function handleChangeTrabalha(){
         setTrabalha(!trabalha);
     }
@@ -64,7 +65,13 @@ export default function Formulario(){
     }
 
     if(loading){ //condicional para Loading
-        return(<h1>Carregando...</h1>)
+        return(
+        <div className="carregando">
+            <h1 id="carregando-txt">Carregando ...</h1>
+            <img src={require('./../carregando.gif')} id="img-carregando"/> 
+        </div>
+        
+        )
     }
 
     if(cadastrado){ //Condicional para se já cadastrado

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react/cjs/react.development"
 import firebase from "../../../firebaseConnection";
-import './../formulario.css'
-
+import './../formulario.css';
+import './../carregando.gif';
 
 
 export default function Login(){
@@ -17,11 +17,12 @@ export default function Login(){
     const [revindicado, setRevindicado] = useState(false); //if true, gift was claimed
     const [logado, setLogado] = useState(false); //se logado true cai na condicional
 
-    const [data, setData] = useState();
+    const[loading, setLoading] = useState(false);
 
 
     //function to login
     async function login(){
+        setLoading(true);
         await firebase.auth().signInWithEmailAndPassword(email, senha)
         .then(async(value)=>{ //se login der certo
             await firebase.firestore().collection('usuarios')
@@ -41,7 +42,7 @@ export default function Login(){
                 setUrlAlbum('/album/'+value.user.uid);
             })
             setLogado(true);
-            
+            setLoading(false);
             
         })
         .catch((error)=>{ //se login não der certo
@@ -110,6 +111,16 @@ export default function Login(){
             })
 
             console.log(usuario.album);
+    }
+
+    if(loading){ //condicional para Loading
+        return(
+        <div className="carregando">
+            <h1 id="carregando-txt">Carregando ...</h1>
+            <img src={require('./../carregando.gif')} id="img-carregando"/> 
+        </div>
+        
+        )
     }
 
     if(logado){ //condicional logado

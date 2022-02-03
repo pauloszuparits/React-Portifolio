@@ -185,3 +185,19 @@
     border: solid 1px black;
     margin: 5px;
 }
+
+.carregando{
+    background-color: #240E44;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#img-carregando{
+    width: 66%;
+}
+
+#carregando-txt{
+    color: white;
+    padding: 20px;
+}
