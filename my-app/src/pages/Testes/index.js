@@ -1,20 +1,20 @@
 import { useState } from "react/cjs/react.development";
 import Draggable from "react-draggable";
 export default function Testes(){
-    // const teste = [1, 2, 3, 4, 5, 6];
     
-    // function filtrar(){
-    //     let filtro = teste.filter((item)=>{
-    //         return(item !== 4);
-    //     })
-    //     console.log(filtro);
-    // }
-    const [position, setPosition] = useState({x: 360, y: 0})
+    const [valor, setValor] = useState('');
     return(
-        <div>
-           <Draggable position={position}>
-               <h1>Teste</h1>
-           </Draggable>
+        <div className="conteiner">
+            <select onChange={(e)=>{setValor(e.target.value)}}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <div>
+                <p>{valor} sdfsdf</p>
+            </div>
         </div>
     );
 }

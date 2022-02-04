@@ -8,15 +8,17 @@ export default function Tarefas(){
     const[tarefas, setTarefas] = useState([]);
     const[contador, setContador] = useState(0);
     
+    const posicao = {x: -3, y: 10}
     
+    const[cor, setCor] = useState("amarelo");
 
     function handleAdd(){
         
         let objTarefa = {id: contador,
                         tarefa: tarefa,
-                        descricao: descricao.length === 0 ? 'Tarefa sem descrição' : descricao, 
-                        //nessa aqui eu mandei bem
-                        posicao: {x: -3, y: 10}}
+                        descricao: descricao.length === 0 ? 'Tarefa sem descrição' : descricao,
+                        cor: cor
+                        }
         setTarefas([...tarefas, objTarefa]);
         setTarefa('');
         setDescricao('');
@@ -39,6 +41,14 @@ export default function Tarefas(){
                     <input className="item-titulo-tarefa" id="titulo-tarefa" type="text" value = {tarefa} onChange={(e)=>{setTarefa(e.target.value)}}/>
                     <p className="item-titulo-tarefa">Descrição da Tarefa</p>
                     <textarea className="item-titulo-tarefa" value={descricao} onChange={(e)=>{setDescricao(e.target.value)}} id="descricao-tarefa"></textarea>
+                    <p>Selecione a cor que você deseja</p>
+                    <select onChange={(e)=>{setCor(e.target.value)}}>
+                        <option value="amarelo" selected>amarelo</option>
+                        <option value="laranja">laranja</option>
+                        <option value="vermelho">vermelho</option>
+                        <option value="verde">verde</option>
+                        <option value="azul">azul</option>
+                    </select>
                 </div>
                 <button className="item-titulo-tarefa" onClick={handleAdd}>Adicionar</button>
             </div>
@@ -48,8 +58,8 @@ export default function Tarefas(){
                     <h2>Planejado</h2>
                     
                         {tarefas.map(tarefa => (
-                            <Draggable defaultPosition={tarefa.posicao} key={tarefa.id}>
-                                <div className="tarefa">
+                            <Draggable defaultPosition={posicao} key={tarefa.id}>
+                                <div className="tarefa" id={tarefa.cor}>
                                     <p>{tarefa.tarefa}</p>
                                     <div>
                                         <abbr title={tarefa.descricao} id="descricao-abbr">?</abbr>

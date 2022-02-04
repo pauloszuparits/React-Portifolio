@@ -76,5 +76,31 @@
 }
 
 #botao-delete{
-    
+    background-color: blueviolet;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#botao-delete:hover{
+    background-color: rgb(82, 24, 136);
+}
+#amarelo{
+    background-color: rgb(214, 214, 10);
+    color: black;
+}
+#laranja{
+    background-color: orange;
+    color: black;
+}
+#vermelho{
+    background-color: red;
+}
+#verde{
+    background-color: green;
+}
+#azul{
+    background-color: blue;
 }
