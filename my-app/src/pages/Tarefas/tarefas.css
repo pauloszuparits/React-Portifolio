@@ -13,19 +13,23 @@
 }
 .titulo-tarefas-conteiner{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+       justify-content: space-between;
     margin: 8px;
 }
 
+
+
 .item-titulo-tarefa{
     margin: 5px;
+    width: 200px;
 }
 
 .tarefa{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: absolute;
 
     background-color: rgb(137, 43, 226);
     color: white;
@@ -48,7 +52,7 @@
 .input-tarefa{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 
 #titulo-tarefa{
