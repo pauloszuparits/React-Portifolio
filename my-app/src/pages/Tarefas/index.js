@@ -9,8 +9,12 @@ export default function Tarefas(){
     const[contador, setContador] = useState(0);
     
     //condicional render
-    const[legendado,setLegendado] = useState(false);
-
+    const[amareloB, setAmareloB] = useState(false);
+    const[laranjaB, setLaranjaB] = useState(false);
+    const[vermelhoB, setVermelhoB] = useState(false);
+    const[verdeB, setVerdeB] = useState(false);
+    const[azulB, setAzulB] = useState(false);
+    
     //subtitles
     const[amareloLeg, setAmareloLeg] = useState('');
     const[laranjaLeg, setLaranjaLeg] = useState('');
@@ -65,42 +69,67 @@ export default function Tarefas(){
                                     <option value="verde">verde</option>
                                     <option value="azul">azul</option>
                                 </select>
-                                                </div>
+                            </div>
                         </div>
 
                 <div>
                     <h2>Legenda</h2>
-                    {legendado 
-                    ? //if
-                        <div>
-                            <p>🟨 - Amarelo - {amareloLeg}</p>
-                            <p>🟧 - Laranja - {laranjaLeg}</p>
-                            <p>🟥 - Vermelho - {vermelhoLeg}</p>
-                            <p>🟩 - Verde - {verdeLeg}</p>
-                            <p>🟦 - Azul - {azulLeg}</p>
-                        </div>
-                        
-                    : //else
+                    
                         <div>
                             <h3>Digite a legenda para cada cor </h3>
-                            <p>🟨 - Amarelo</p>
-                            <input type="text" value={amareloLeg} 
-                            onChange={(e)=>{setAmareloLeg(e.target.value)}}/>
-                            <p>🟧 - Laranja</p>
-                            <input type="text" value={laranjaLeg} 
-                            onChange={(e)=>{setLaranjaLeg(e.target.value)}}/>
-                            <p>🟥 - Vermelho</p>
-                            <input type="text" value={vermelhoLeg} 
-                            onChange={(e)=>{setVermelhoLeg(e.target.value)}}/>
-                            <p>🟩 - Verde</p>
-                            <input type="text" value={verdeLeg} 
-                            onChange={(e)=>{setVerdeLeg(e.target.value)}}/>
-                            <p>🟦 - Azul</p>
-                            <input type="text" value={azulLeg} 
-                            onChange={(e)=>{setAzulLeg(e.target.value)}}/>
-                            <p><button onClick={()=>{setLegendado(true)}}>Cadastrar legendas</button></p>
+                            {amareloB ?
+                            <p>🟨 - Amarelo - {amareloLeg}</p>
+                            :
+                            <div>
+                                <p>🟨 - Amarelo</p>
+                                <input type="text" value={amareloLeg}
+                                onChange={(e)=>{setAmareloLeg(e.target.value)}}/>
+                                <button onClick={()=>{setAmareloB(true)}}>Adicionar</button>
+                            </div>
+                            }
+                            {laranjaB ?
+                            <p>🟧 - Laranja {laranjaLeg}</p>
+                            :
+                            <div>
+                                <p>🟧 - Laranja</p>
+                                <input type="text" value={laranjaLeg}
+                                onChange={(e)=>{setLaranjaLeg(e.target.value)}}/>
+                                <button onClick={()=>{setLaranjaB(true)}}>Adicionar</button>
+                            </div>
+                            }
+                            {vermelhoB ?
+                            <p>🟥 - Vermelho {vermelhoLeg}</p>
+                            :
+                            <div>
+                                <p>🟥 - Vermelho</p>
+                                <input type="text" value={vermelhoLeg}
+                                onChange={(e)=>{setVermelhoLeg(e.target.value)}}/>
+                                <button onClick={()=>{setVermelhoB(true)}}>Adicionar</button>
+                            </div>
+                            }
+                            {verdeB ?
+                            <p>🟩 - Verde {verdeLeg}</p>
+                            :
+                            <div>
+                                <p>🟩 - Verde</p>
+                                <input type="text" value={verdeLeg}
+                                onChange={(e)=>{setVerdeLeg(e.target.value)}}/>
+                                <button onClick={()=>{setVerdeB(true)}}>Adicionar</button>
+                            </div>
+                            }
+                            {azulB ?
+                            <p>🟦 - Azul {azulLeg}</p>
+                            :
+                            <div>
+                                <p>🟦 - Azul</p>
+                                <input type="text" value={azulLeg}
+                                onChange={(e)=>{setAzulLeg(e.target.value)}}/>
+                                <button onClick={()=>{setAzulB(true)}}>Adicionar</button>
+                            </div>
+                            }
+                            
                         </div>
-                    }
+                    
                 </div>
 
             </div>
@@ -111,7 +140,7 @@ export default function Tarefas(){
                     
                         {tarefas.map(tarefa => (
                             
-                            <body>
+                            
                                 <Draggable defaultPosition={posicao} key={tarefa.id}
                                 bounds="body">
                                     <div className="tarefa" id={tarefa.cor}>
@@ -122,7 +151,7 @@ export default function Tarefas(){
                                         </div>
                                     </div>
                                 </Draggable>
-                            </body>
+                            
                             
                         ))}
                     
