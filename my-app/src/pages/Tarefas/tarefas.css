@@ -18,7 +18,9 @@
     margin: 8px;
 }
 
-
+#slct-cor{
+    width: 300px;
+}
 
 .item-titulo-tarefa{
     margin: 5px;
@@ -107,4 +109,16 @@
 }
 #azul{
     background-color: blue;
+}
+
+.botoes-tarefas{
+    margin-left: 8px;
+}
+
+.botao-tarefa{
+    border-radius: 10px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    border: solid 1px black;
 }

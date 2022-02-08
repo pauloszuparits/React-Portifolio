@@ -29,21 +29,29 @@ export default function Tarefas(){
     //select color value
     const[cor, setCor] = useState("amarelo");
 
-    useEffect(()=>{
+    useEffect(()=>{ //get data on Local Stroage
         const status = localStorage.getItem('status');
         const legendas = localStorage.getItem('legendas');
         
         let statusSaved = JSON.parse(status) || [];
         let legSaved = JSON.parse(legendas) || [];
 
-        setTarefas(statusSaved);
+        setTarefas(statusSaved); //Tasks
         
-            setAmareloLeg(legSaved.amarelo);
-            setLaranjaLeg(legSaved.laranja);
-            setVermelhoLeg(legSaved.vermelho);
-            setVerdeLeg(legSaved.verde);
-            setAzulLeg(legSaved.azul);
-            console.log('entrou')
+        //Subtitles
+        setAmareloLeg(legSaved.amarelo);
+        setLaranjaLeg(legSaved.laranja);
+        setVermelhoLeg(legSaved.vermelho);
+        setVerdeLeg(legSaved.verde);
+        setAzulLeg(legSaved.azul);
+
+        //subtitles booleans
+        setAmareloB(legSaved.aB);
+        setLaranjaB(legSaved.lB);
+        setVermelhoB(legSaved.vB);
+        setVerdeB(legSaved.verB);
+        setAzulB(legSaved.azulB);
+
     },[])
 
 
@@ -73,7 +81,12 @@ export default function Tarefas(){
                       laranja: laranjaLeg,
                       vermelho: vermelhoLeg,
                       verde: verdeLeg,
-                      azul: azulLeg
+                      azul: azulLeg,
+                      aB: amareloB,
+                      lB: laranjaB,
+                      vB: vermelhoB,
+                      verB: verdeB,
+                      azB: azulB
         }  
         localStorage.setItem('status', JSON.stringify(tarefas));
         localStorage.setItem('legendas', JSON.stringify(objLeg));
@@ -93,7 +106,7 @@ export default function Tarefas(){
                                 <input className="item-titulo-tarefa" id="titulo-tarefa" type="text" value = {tarefa} onChange={(e)=>{setTarefa(e.target.value)}}/>
                                 <p className="item-titulo-tarefa">Descrição da Tarefa</p>
                                 <textarea className="item-titulo-tarefa" value={descricao} onChange={(e)=>{setDescricao(e.target.value)}} id="descricao-tarefa"></textarea>
-                                <p>Selecione a cor que você deseja</p>
+                                <p className="item-titulo-tarefa" id="slct-cor">Selecione a cor que você deseja</p>
                                 <select onChange={(e)=>{setCor(e.target.value)}} className="item-titulo-tarefa">
                                     <option value="amarelo" selected>amarelo</option>
                                     <option value="laranja">laranja</option>
@@ -181,8 +194,13 @@ export default function Tarefas(){
                 </div>
 
             </div>
-            <button className="item-titulo-tarefa" onClick={handleAdd}>Adicionar</button>
-            <button onClick={saveStatus}>Salvar estado das Tarefas</button>
+            
+            <div className="botoes-tarefas">
+                <button className="item-titulo-tarefa botao-tarefa" onClick={handleAdd}>Adicionar</button>
+                <div><button onClick={saveStatus} className="item-titulo-tarefa botao-tarefa">Salvar Tarefas</button></div>
+            </div>
+
+
             <div className="conteiner-tarefas">
                 <div className="tarefas" id="planejado">
                     <h2>Planejado</h2>
