@@ -1,6 +1,7 @@
 import { useState } from "react/cjs/react.development";
 import './tarefas.css'
 import Draggable from "react-draggable";
+import { useEffect } from "react";
 export default function Tarefas(){
 
     const[tarefa, setTarefa] = useState('');
@@ -23,10 +24,27 @@ export default function Tarefas(){
     const[azulLeg, setAzulLeg] = useState('');
 
     //position
-    const posicao = {x: -3, y: 10}
-    
+    const[posicao, setPosicao] = useState({x: -3, y:10})
+
     //select color value
     const[cor, setCor] = useState("amarelo");
+
+    useEffect(()=>{
+        const status = localStorage.getItem('status');
+        const legendas = localStorage.getItem('legendas');
+        
+        let statusSaved = JSON.parse(status) || [];
+        let legSaved = JSON.parse(legendas) || [];
+
+        setTarefas(statusSaved);
+        
+            setAmareloLeg(legSaved.amarelo);
+            setLaranjaLeg(legSaved.laranja);
+            setVermelhoLeg(legSaved.vermelho);
+            setVerdeLeg(legSaved.verde);
+            setAzulLeg(legSaved.azul);
+            console.log('entrou')
+    },[])
 
 
     function handleAdd(){
@@ -34,7 +52,8 @@ export default function Tarefas(){
         let objTarefa = {id: contador,
                         tarefa: tarefa,
                         descricao: descricao.length === 0 ? 'Tarefa sem descrição' : descricao,
-                        cor: cor
+                        cor: cor,
+                        posicao: {x: -3, y:10}
                         }
         setTarefas([...tarefas, objTarefa]);
         setTarefa('');
@@ -48,6 +67,19 @@ export default function Tarefas(){
         let filtro = tarefas.filter((item)=>{return(item.id !== id)})
         setTarefas(filtro);
     }
+
+    function saveStatus(){
+        let objLeg = {amarelo: amareloLeg,
+                      laranja: laranjaLeg,
+                      vermelho: vermelhoLeg,
+                      verde: verdeLeg,
+                      azul: azulLeg
+        }  
+        localStorage.setItem('status', JSON.stringify(tarefas));
+        localStorage.setItem('legendas', JSON.stringify(objLeg));
+    }
+
+    
     
     return(
         <div>
@@ -78,17 +110,24 @@ export default function Tarefas(){
                         <div>
                             <h3>Digite a legenda para cada cor </h3>
                             {amareloB ?
-                            <p>🟨 - Amarelo - {amareloLeg}</p>
+                            <div>
+                                <p>🟨 - Amarelo - {amareloLeg}</p>
+                                <button onClick={()=>{setAmareloB(false)}}>Editar</button>
+                            </div>
                             :
                             <div>
                                 <p>🟨 - Amarelo</p>
                                 <input type="text" value={amareloLeg}
                                 onChange={(e)=>{setAmareloLeg(e.target.value)}}/>
                                 <button onClick={()=>{setAmareloB(true)}}>Adicionar</button>
+                                
                             </div>
                             }
                             {laranjaB ?
-                            <p>🟧 - Laranja {laranjaLeg}</p>
+                            <div>
+                                <p>🟧 - Laranja {laranjaLeg}</p>
+                                <button onClick={()=>{setLaranjaB(false)}}>Editar</button>
+                            </div>
                             :
                             <div>
                                 <p>🟧 - Laranja</p>
@@ -98,7 +137,10 @@ export default function Tarefas(){
                             </div>
                             }
                             {vermelhoB ?
-                            <p>🟥 - Vermelho {vermelhoLeg}</p>
+                            <div>
+                                <p>🟥 - Vermelho {vermelhoLeg}</p>
+                                <button onClick={()=>{setVermelhoB(false)}}>Editar</button>
+                            </div>
                             :
                             <div>
                                 <p>🟥 - Vermelho</p>
@@ -108,7 +150,10 @@ export default function Tarefas(){
                             </div>
                             }
                             {verdeB ?
-                            <p>🟩 - Verde {verdeLeg}</p>
+                            <div>
+                                <p>🟩 - Verde {verdeLeg}</p>
+                                <button onClick={()=>{setVerdeB(false)}}>Editar</button>
+                            </div>
                             :
                             <div>
                                 <p>🟩 - Verde</p>
@@ -118,7 +163,10 @@ export default function Tarefas(){
                             </div>
                             }
                             {azulB ?
-                            <p>🟦 - Azul {azulLeg}</p>
+                            <div>
+                                <p>🟦 - Azul {azulLeg}</p>
+                                <button onClick={()=>{setAzulB(false)}}>Editar</button>
+                            </div>
                             :
                             <div>
                                 <p>🟦 - Azul</p>
@@ -134,6 +182,7 @@ export default function Tarefas(){
 
             </div>
             <button className="item-titulo-tarefa" onClick={handleAdd}>Adicionar</button>
+            <button onClick={saveStatus}>Salvar estado das Tarefas</button>
             <div className="conteiner-tarefas">
                 <div className="tarefas" id="planejado">
                     <h2>Planejado</h2>
@@ -141,8 +190,12 @@ export default function Tarefas(){
                         {tarefas.map(tarefa => (
                             
                             
-                                <Draggable defaultPosition={posicao} key={tarefa.id}
-                                bounds="body">
+                                <Draggable defaultPosition={tarefa.posicao} key={tarefa.id}
+                                bounds="body" 
+                                onDrag={(e, ui)=>{
+                                    setPosicao({x: posicao.x + ui.deltaX,
+                                                y: posicao.y + ui.deltaY})
+                                }} onStop={()=>{tarefa.posicao = posicao}}>
                                     <div className="tarefa" id={tarefa.cor}>
                                         <p>{tarefa.tarefa}</p>
                                         <div>

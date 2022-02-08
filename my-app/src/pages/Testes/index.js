@@ -9,12 +9,14 @@ export default function Testes(){
     //               y: valor.y + ui.deltaY})
     //     console.log(valor);
     // }
+
     return(
         <div className="conteiner">
             <Draggable onDrag={(e, ui)=>{
                 setValor({x: valor.x + ui.deltaX,
                     y: valor.y + ui.deltaY})
-            }} onStop={()=>{console.log(valor)}}>
+            }}
+            onStop={()=>{console.log(valor)}}>
                 <div className="tarefa">Teste</div>
             </Draggable>
         </div>
