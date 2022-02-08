@@ -121,71 +121,70 @@ export default function Tarefas(){
                     <h2>Legenda</h2>
                     
                         <div>
-                            <h3>Digite a legenda para cada cor </h3>
+                            <h3>Digite a legenda para cada cor</h3>
                             {amareloB ?
-                            <div>
-                                <p>🟨 - Amarelo - {amareloLeg}</p>
-                                <button onClick={()=>{setAmareloB(false)}}>Editar</button>
+                            <div className="legenda">
+                                <p className="titulo-legenda">🟨 - Amarelo - {amareloLeg} <button onClick={()=>{setAmareloB(false)}} className="botao-tarefa botao-legenda">Editar</button> </p>
                             </div>
                             :
-                            <div>
-                                <p>🟨 - Amarelo</p>
+                            <div className="legenda">
+                                <p className="titulo-legenda">🟨 - Amarelo</p>
                                 <input type="text" value={amareloLeg}
                                 onChange={(e)=>{setAmareloLeg(e.target.value)}}/>
-                                <button onClick={()=>{setAmareloB(true)}}>Adicionar</button>
+                                <button onClick={()=>{setAmareloB(true)}} className="botao-tarefa botao-legenda">Adicionar</button>
                                 
                             </div>
                             }
                             {laranjaB ?
                             <div>
                                 <p>🟧 - Laranja {laranjaLeg}</p>
-                                <button onClick={()=>{setLaranjaB(false)}}>Editar</button>
+                                <button onClick={()=>{setLaranjaB(false)}} className="botao-tarefa botao-legenda">Editar</button>
                             </div>
                             :
                             <div>
                                 <p>🟧 - Laranja</p>
                                 <input type="text" value={laranjaLeg}
                                 onChange={(e)=>{setLaranjaLeg(e.target.value)}}/>
-                                <button onClick={()=>{setLaranjaB(true)}}>Adicionar</button>
+                                <button onClick={()=>{setLaranjaB(true)}} className="botao-tarefa botao-legenda">Adicionar</button>
                             </div>
                             }
                             {vermelhoB ?
                             <div>
                                 <p>🟥 - Vermelho {vermelhoLeg}</p>
-                                <button onClick={()=>{setVermelhoB(false)}}>Editar</button>
+                                <button onClick={()=>{setVermelhoB(false)}} className="botao-tarefa botao-legenda">Editar</button>
                             </div>
                             :
                             <div>
                                 <p>🟥 - Vermelho</p>
                                 <input type="text" value={vermelhoLeg}
                                 onChange={(e)=>{setVermelhoLeg(e.target.value)}}/>
-                                <button onClick={()=>{setVermelhoB(true)}}>Adicionar</button>
+                                <button onClick={()=>{setVermelhoB(true)}} className="botao-tarefa botao-legenda">Adicionar</button>
                             </div>
                             }
                             {verdeB ?
                             <div>
                                 <p>🟩 - Verde {verdeLeg}</p>
-                                <button onClick={()=>{setVerdeB(false)}}>Editar</button>
+                                <button onClick={()=>{setVerdeB(false)}} className="botao-tarefa botao-legenda">Editar</button>
                             </div>
                             :
                             <div>
                                 <p>🟩 - Verde</p>
                                 <input type="text" value={verdeLeg}
                                 onChange={(e)=>{setVerdeLeg(e.target.value)}}/>
-                                <button onClick={()=>{setVerdeB(true)}}>Adicionar</button>
+                                <button onClick={()=>{setVerdeB(true)}} className="botao-tarefa botao-legenda">Adicionar</button>
                             </div>
                             }
                             {azulB ?
                             <div>
                                 <p>🟦 - Azul {azulLeg}</p>
-                                <button onClick={()=>{setAzulB(false)}}>Editar</button>
+                                <button onClick={()=>{setAzulB(false)}} className="botao-tarefa botao-legenda">Editar</button>
                             </div>
                             :
                             <div>
                                 <p>🟦 - Azul</p>
                                 <input type="text" value={azulLeg}
                                 onChange={(e)=>{setAzulLeg(e.target.value)}}/>
-                                <button onClick={()=>{setAzulB(true)}}>Adicionar</button>
+                                <button onClick={()=>{setAzulB(true)}} className="botao-tarefa botao-legenda">Adicionar</button>
                             </div>
                             }
                             

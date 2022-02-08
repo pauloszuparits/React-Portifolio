@@ -122,3 +122,19 @@
     font-weight: bold;
     border: solid 1px black;
 }
+
+.botao-legenda{
+    margin-left: 10px;
+    padding: 0px 15px 0px 15px;
+}
+
+.legenda{
+    margin-bottom: 14px;
+    margin-top: 10px;
+}
+
+.titulo-legenda{
+    margin-bottom: 5px;
+    width: 200px;
+    word-wrap: break-word;
+}
